@@ -9,4 +9,6 @@ module.exports = (_id) => {
 	return Artist.remove({ _id });
 	//return Artist.findOneAndRemove({ _id: _id });
 	//return Artist.findByIdAndRemove(_id);
+
+	//All possible solutions
 };
