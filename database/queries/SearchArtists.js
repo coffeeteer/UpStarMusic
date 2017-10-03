@@ -11,7 +11,7 @@ const Artist = require('../models/artist');
 module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
 	//Write a query that will follow sort, offset, limit options only
 	//Do not worry about 'criteria' yet
-	const query = Artist.find({})
+	const query = Artist.find(buildQuery(criteria))
 		.sort({ [sortProperty]: 1 })
 		// the above is not an array but ES6 Interpolated Keys
 		.skip(offset)
@@ -26,4 +26,17 @@ module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
 				limit: limit
 			};
 		});	
+};
+
+const buildQuery = (criteria) => {
+	const query = {};
+
+	if(criteria.age){
+		query.age = {
+			$gte: criteria.age.min,
+			$lte: criteria.age.max  
+		};
+	}
+
+	return query;
 };
